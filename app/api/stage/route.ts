@@ -1,2 +1,3 @@
-import {NextResponse} from 'next/server';import {orchestrate} from '../../../lib/orchestrator';
-export async function POST(req:Request){try{const input=await req.json();return NextResponse.json(await orchestrate(input))}catch(e:any){return NextResponse.json({error:e.message},{status:400})}}
+import {NextResponse} from 'next/server';import {orchestrateStage} from '../../../lib/staging/orchestrator';import type {StageRequest} from '../../../lib/staging/types';
+export const runtime='nodejs';export const maxDuration=60;
+export async function POST(request:Request){try{const form=await request.formData();const image=form.get('image');const payload=form.get('payload');if(!(image instanceof File)||typeof payload!=='string')return NextResponse.json({error:'Richiesta non valida.'},{status:400});const result=await orchestrateStage(image,JSON.parse(payload) as StageRequest);return NextResponse.json(result)}catch(error){const message=error instanceof Error?error.message:'Errore inatteso';return NextResponse.json({error:message},{status:500})}}
