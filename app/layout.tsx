@@ -1,3 +1,4 @@
 import './globals.css';
-export const metadata={title:'EstateStage AI',description:'Architecture-first AI virtual staging'};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="it"><body>{children}</body></html>}
+import type { Metadata } from 'next';
+export const metadata: Metadata = { title: 'EstateStage AI', description: 'Virtual staging AI architecture-first per il mercato immobiliare' };
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="it"><body>{children}</body></html>; }
